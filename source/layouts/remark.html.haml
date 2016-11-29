@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %title Remark
+    = javascript_include_tag 'https://gnab.github.io/remark/downloads/remark-latest.min.js'
+    = stylesheet_link_tag stylesheet
+    %meta{ name: 'viewport', content: 'initial-scale=0.5' }
+
+  %body
+    %textarea#source= yield
+    :javascript
+      var slideshow = remark.create({
+        highlightStyle: 'monokai',
+        highlightLanguage: 'remark',
+        highlightLines: true
+      });
+
+    :javascript
+      var hljs = remark.highlighter.engine;
+
+    = javascript_include_tag 'https://remarkjs.com/remark.language.js'

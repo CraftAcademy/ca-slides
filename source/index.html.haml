@@ -6,3 +6,6 @@ title: Craft Academy Slides
   .logo
     = image_tag 'https://assets.craftacademy.se/images/logo/graphic_only_logo_white.png'
   %h1 Craft Academy Slides
+  %ul
+    - remarks.each do |file|
+      %li= remark_link(file)

@@ -1,3 +1,7 @@
+# Dir['extensions/*.rb'].each { |file| require file }
+require 'extensions/remarky'
+activate :remarky
+
 ###
 # Page options, layouts, aliases and proxies
 ###
@@ -16,23 +20,22 @@ page '/*.txt', layout: false
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
+remarks.each do |r|
+  remark_name = File.basename(r)
+  stylesheet = extract_stylesheet(r)
+  proxy "/remarks/#{remark_name}", '/remark.html',
+        layout: 'remark', locals: { remark: r, stylesheet: stylesheet }
+end
+
+proxy '/remarks/', '/index.html'
+proxy '/remarks', '/index.html'
+
 # General configuration
 
 # Reload the browser automatically whenever files change
 configure :development do
   activate :livereload
 end
-
-###
-# Helpers
-###
-
-# Methods defined in the helpers block are available in templates
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
 
 # Build-specific configuration
 configure :build do
