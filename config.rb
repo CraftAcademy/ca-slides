@@ -23,7 +23,7 @@ page '/*.txt', layout: false
 remarks.each do |r|
   remark_name = File.basename(r)
   stylesheet = extract_stylesheet(r)
-  proxy "/remarks/#{remark_name}", '/remark.html',
+  proxy output_filename(remark_name), '/remark.html',
         layout: 'remark', locals: { remark: r, stylesheet: stylesheet }
 end
 
@@ -44,4 +44,5 @@ configure :build do
 
   # Minify Javascript on build
   # activate :minify_javascript
+  ignore 'remark.html.haml'
 end

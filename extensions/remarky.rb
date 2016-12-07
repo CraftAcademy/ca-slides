@@ -2,17 +2,17 @@
 # Authored by Cameron Daigle (https://github.com/camerond)
 class Remarky < Middleman::Extension
   expose_to_config :remarks, :remark_link, :extract_content,
-                   :extract_stylesheet, :stylesheet_regex
-  expose_to_template :remarks, :remark_link, :extract_content
+                   :extract_stylesheet, :stylesheet_regex, :output_filename
+  expose_to_template :remarks, :remark_link, :extract_content, :slide_title
 
   def remarks
     Dir.glob('source/remarks/*.remark')
   end
 
   def remark_link(file)
-    filename = File.basename(file, '.remark')
-    title = filename.tr('_', ' ').titleize
-    url = "/remarks/#{filename}.remark"
+    filename = file_name(file)
+    title = slide_title(file)
+    url = "/remarks/#{filename}.html"
 
     app.link_to title, url
   end
@@ -29,6 +29,19 @@ class Remarky < Middleman::Extension
 
   def stylesheet_regex
     /\A!!! (\S*)$/
+  end
+
+  def slide_title(file)
+    filename = file_name(file)
+    filename.tr('_', ' ').titleize
+  end
+
+  def file_name(file)
+    File.basename(file, '.remark')
+  end
+
+  def output_filename(file)
+    "/remarks/#{file_name(file)}.html"
   end
 
   ::Middleman::Extensions.register(:remarky, Remarky)
