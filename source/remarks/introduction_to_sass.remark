@@ -1,0 +1,433 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Introduction to Sass
+???
+In order to build beautiful and appealing web applications we rely on a heavy amount of CSS for styling.
+
+You haven't written any considerable amount of CSS yet but as you advance in your career as a Web developer you'll definitely have to deal with a fair share of that.
+
+And maintaining CSS code base can be a complete nightmare.
+
+Sass is a CSS preprocessor.
+---
+## CSS Pre-processors
+
+???
+So what are CSS preprocessors and why should you care about them?
+---
+layout: false
+.left-column[
+  ## Features
+]
+.right-column[
+### - Variables
+### - Functions
+### - Mixins
+### - Nesting
+### - etc.
+]
+???
+Making use of CSS a pre-processors will save you a great deal of time and decrease your level of stress
+when maintaining large and complex stylesheets.
+
+It will also help you keep a cleaner and easy to understand structure by giving you access to features like ...
+
+etc.. And more awesome things that'll make you happy when maintaining/Writing CSS
+---
+layout: false
+class: middle
+
+.left-column[
+  ## Features
+  ## Examples
+]
+.right-column[
+![css preprocessors](../images/sass/css-preprocessors.jpg)
+]
+---
+template: inverse
+
+## Getting started and Installation
+---
+layout: false
+class: middle
+
+### 1. Install Sass
+
+```
+$ gem install sass
+```
+
+### 2. Double-check
+
+```
+$ sass -v
+> Sass 3.4.22 (Selective Steve)
+```
+???
+Sass is written in ruby.
+Before you start using Sass you need to install Ruby.
+---
+template: inverse
+
+## Sass is to CSS what Haml is to HTML
+???
+And they were actually built by the same guy. Hampton Catlin.
+---
+layout: false
+class: middle
+
+### How to use Sass to generate CSS
+```
+$ sass input.scss output.css
+```
+
+### Watch a single file
+```
+$ sass --watch input.scss:output.css
+```
+
+### Watch a directory
+```
+$ sass --watch source/sass:build/stylesheets
+```
+---
+template: inverse
+
+## Variables
+---
+layout: false
+class: middle
+
+Use `$` symbol to create a variable
+
+```scss
+// SCSS Syntax
+$font-stack: Open Sans, sans-serif;
+$main-color: #555;
+
+body {
+  font: $font-stack;
+  color: $main-color;
+}
+```
+
+```sass
+// SASS Syntax
+$font-stack: 'Open Sans', sans-serif
+$main-color: #555
+
+body
+  font: $font-stack
+  color: $main-color
+```
+---
+layout: false
+class: middle
+
+### CSS Output
+
+```css
+/* CSS Output */
+body {
+  font: Open Sans, sans-serif;
+  color: #555;
+}
+```
+---
+template: inverse
+
+## Nesting
+---
+layout: false
+class: middle
+
+```html
+<!-- HTML -->
+<nav>
+  <ul>
+    <li>
+      <a href="">Home</a>
+      <a href="">About</a>
+      <a href="">Contact</a>
+    </li>
+  </ul>
+</nav>
+```
+???
+When you write HTML you often have a nested visual hierarchy. CSS on the other hand doesn't allow you to do that.
+
+Sass will allow you to nest your CSS selectors in the same way you'd in your HTML
+
+But keep in mind, 'With Great powers, comes great responsibilities' -- Do not overuse nesting.
+
+If you have a linter installed on your environment, it'll will often keep you in check with that as well.
+
+So with that in mind, let's take a look at what the styling for this will look like
+---
+class: middle
+
+```scss
+// SCSS Syntax
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li { display: inline-block; }
+
+  a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+}
+```
+---
+class: middle
+
+### CSS Output
+
+```css
+/* CSS Output */
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+```
+---
+template: inverse
+
+## Partials
+---
+layout: false
+class: middle
+
+### - Create partials with small snippets of CSS that you can include in other Sass files.
+### - Filenames: `_partial.scss`
+### - `@import` directive
+???
+The underscore will let Sass know that it's only a partial file and that it should not generate a CSS file for it
+
+You include them in other Sass files by using the `@import` directive.
+---
+template: inverse
+
+## Import
+---
+layout: false
+class: middle
+
+- Partials
+
+  ```scss
+  // _variables.scss
+  $primary-color: #1a59b6;
+  $bg-color: #ddd;
+  $font-family: 'Roboto', sans-serif;
+  ```
+
+  ```scss
+  // _reset.scss
+  html,
+  body,
+  ul,
+  ol {
+     margin: 0;
+    padding: 0;
+  }
+  ```
+
+- Main stylesheet
+  ```scss
+  // style.scss
+  @import 'variables';
+  @import 'reset';
+
+  body {
+    font-family: $font-family;
+    background: $bg-color;
+  }
+
+  h1 {
+    color: $primary-color;
+  }
+  ```
+---
+class: middle
+
+### CSS Output
+
+```css
+/* CSS Output: style.css*/
+html, body, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: #ddd;
+}
+
+h1 {
+  color: #1a59b6;
+}
+```
+---
+template: inverse
+
+## Mixins
+---
+layout: false
+class: middle
+
+```scss
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+.box10 {
+  @include border-radius(10px);
+}
+
+.box20 {
+  @include border-radius(20px);
+}
+```
+---
+class: middle
+
+### CSS Output
+
+```css
+/* CSS Output */
+.box10 {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.box20 {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  border-radius: 20px;
+}
+```
+---
+template: inverse
+
+# Extend/Inheritance
+---
+layout: false
+class: middle
+
+```scss
+.alert {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.alert-success {
+  @extend .alert;
+  border-color: green;
+}
+
+.alert-error {
+  @extend .alert;
+  border-color: red;
+}
+
+.alert-warning {
+  @extend .alert;
+  border-color: yellow;
+}
+```
+???
+This is probably one of the most useful feature of Sass.
+
+`@extend` lets you share a set of CSS properties from one selector to another. Keeping your Sass code DRY.
+
+Let's see this in action.
+One thing that we use often on our web application are alert messages, and they all share a common styling
+except for few details like the color based on the type of alert message.
+---
+class: middle
+
+```css
+/* CSS Output */
+.alert, .alert-success, .alert-error, .alert-warning {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  color: #333;
+}
+
+.alert-success {
+  border-color: green;
+}
+
+.alert-error {
+  border-color: red;
+}
+
+.alert-warning {
+  border-color: yellow;
+}
+```
+---
+template: inverse
+
+## Other features
+---
+layout: false
+class: middle
+
+### - Operators
+You can do maths with Sass
+
+```scss
+$width: 800px;
+
+.container {
+  width: $width;
+}
+
+.column-half {
+  width: $width / 2;
+}
+
+.column-fifth {
+  width: $width / 5;
+}
+```
+
+### - [Functions](http://sass-lang.com/documentation/Sass/Script/Functions.html)
+---
+template: inverse
+
+## Questions?
+[Thanks 🖖]
+---
