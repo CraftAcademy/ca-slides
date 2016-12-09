@@ -27,7 +27,7 @@ remarks.each do |r|
         layout: 'remark', locals: { remark: r, stylesheet: stylesheet }
 end
 
-proxy '/remarks/', '/index.html'
+proxy '/slides/', '/index.html'
 proxy '/remarks', '/index.html'
 
 # General configuration

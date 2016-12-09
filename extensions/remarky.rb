@@ -6,13 +6,13 @@ class Remarky < Middleman::Extension
   expose_to_template :remarks, :remark_link, :extract_content, :slide_title
 
   def remarks
-    Dir.glob('source/remarks/*.remark')
+    Dir.glob('source/slides/*.remark')
   end
 
   def remark_link(file)
     filename = file_name(file)
     title = slide_title(file)
-    url = "/remarks/#{filename}.html"
+    url = "/slides/#{filename}.html"
 
     app.link_to title, url
   end
@@ -41,7 +41,7 @@ class Remarky < Middleman::Extension
   end
 
   def output_filename(file)
-    "/remarks/#{file_name(file)}.html"
+    "/slides/#{file_name(file)}.html"
   end
 
   ::Middleman::Extensions.register(:remarky, Remarky)
