@@ -9,12 +9,12 @@ class Remarky < Middleman::Extension
     Dir.glob('source/slides/*.remark')
   end
 
-  def remark_link(file)
+  def remark_link(file, css_class = '')
     filename = file_name(file)
     title = slide_title(file)
     url = "/slides/#{filename}.html"
 
-    app.link_to title, url
+    app.link_to title, url, class: css_class
   end
 
   def extract_content(filename)
