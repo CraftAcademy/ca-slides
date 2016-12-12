@@ -2,10 +2,13 @@
 title: Craft Academy Slides
 ---
 
-.welcome
-  .logo
-    = image_tag 'https://assets.craftacademy.se/images/logo/graphic_only_logo_white.png'
-  %h1 Craft Academy Slides
-  %ul
-    - remarks.each do |file|
-      %li= remark_link(file)
+.pa3.pa5-ns.black-60
+  %h2.f4.f2-ns.mt1-ns
+    Slides
+
+  .fl.w-100.w-third-ns
+    %ul.list.pl0.measure
+      - remarks.each do |file|
+        - unless file =~ /example/
+          %li.lh-copy.pv3.ba.bl-0.bt-0.br-0.b--dotted.b--black-30
+            = remark_link(file, 'db mid-gray link dim')
