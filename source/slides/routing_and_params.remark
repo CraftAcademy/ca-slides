@@ -1,0 +1,255 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Rails Routing & Params
+---
+layout: false
+.left-column[
+
+
+![Rails routes](../images/routing_params/routes.png)
+]
+.right-column[
+## What is a route and where are they found in a Rails application?
+
+A route is a path from a URL into your application and to your controller.
+
+Rails routes are located in `config/routes.rb`
+
+]
+---
+layout: false
+.left-column[
+  ## A sample route
+]
+.right-column[
+```
+get '/', controller: :main, action: :index
+```
+]
+---
+layout: false
+.left-column[
+  ## A sample route
+  ## Rails Routes
+]
+.right-column[
+```
+get '/', controller: :main, action: :index
+```
+```
+14:20 $ rails routes
+Prefix Verb URI Pattern Controller#Action
+       GET  /           main#index
+```
+]
+---
+layout: false
+.left-column[
+  ## A sample route
+  ## Rails Routes
+  ## Using `as`
+]
+.right-column[
+```
+get '/dinosaurs', controller: :dinosaurs, action: :index
+```
+```
+14:20 $ rails routes
+Prefix Verb URI Pattern Controller#Action
+       GET  /dinosaurs           dinosaurs#index
+```
+```
+get '/', controller: :main, action: :index, as: :dinosaurs
+```
+```
+14:21 $ rails routes
+   Prefix Verb URI Pattern          Controller#Action
+dinosaurs GET  /dinosaurs(.:format) dinosaurs#index
+```
+]
+---
+layout: false
+.left-column[
+  ## A sample route
+  ## Rails Routes
+  ## Using `as`
+  ## Helper methods
+]
+.right-column[
+```
+get '/dinosaurs', controller: :dinosaurs, action: :index
+```
+```
+14:20 $ rails routes
+Prefix Verb URI Pattern Controller#Action
+       GET  /dinosaurs           dinosaurs#index
+```
+```
+get '/', controller: :main, action: :index, as: :dinosaurs
+```
+```
+14:21 $ rails routes
+   Prefix Verb URI Pattern          Controller#Action
+dinosaurs GET  /dinosaurs(.:format) dinosaurs#index
+```
+Now we can use `dinosaurs_path` as a helper method:
+```
+= link_to 'Dinosaurs index!', dinosaurs_path
+```
+]
+---
+layout: false
+.left-column[
+  ## A route with params
+]
+.right-column[
+```
+get '/dinosaurs/:id', controller: :dinosaurs, action: :show,
+  as: :dino
+```
+```
+Prefix Verb URI Pattern              Controller#Action
+  dino GET  /dinosaurs/:id(.:format) dinosaurs#show
+```
+]
+---
+layout: false
+.left-column[
+  ## A route with params
+  ## Using params helpers
+]
+.right-column[
+```
+get '/dinosaurs/:id', controller: :dinosaurs, action: :show,
+  as: :dino
+```
+```
+Prefix Verb URI Pattern              Controller#Action
+  dino GET  /dinosaurs/:id(.:format) dinosaurs#show
+```
+Now we can show information about individual dinosaurs with:
+```
+dino_path(@dinosaur)
+```
+(once we get our controller and views settled).
+
+If we are using a dinosaur with id# 17, this corresponds to the URL:
+```
+/dinosaurs/17
+```
+]
+---
+layout: false
+.left-column[
+  ## Resources
+]
+.right-column[
+- index
+- show
+- new
+- edit
+- create
+- update
+- destroy
+```
+resources :dinosaurs, only: [:index, :show]
+```
+```
+14:30 $ rails routes
+   Prefix Verb URI Pattern              Controller#Action
+dinosaurs GET  /dinosaurs(.:format)     dinosaurs#index
+ dinosaur GET  /dinosaurs/:id(.:format) dinosaurs#show
+```
+]
+---
+layout: false
+
+## Namespaces
+```
+Rails.application.routes.draw do
+
+  namespace :prehistory do
+    resources :dinos, only: [:index, :show]
+  end
+
+end
+```
+```
+14:49 $ rails routes
+          Prefix Verb URI Pattern                     Controller#Action
+prehistory_dinos GET  /prehistory/dinos(.:format)     prehistory/dinos#index
+ prehistory_dino GET  /prehistory/dinos/:id(.:format) prehistory/dinos#show
+```
+---
+template: inverse
+
+## Params
+---
+layout: false
+![controller view pass information](../images/routing_params/controller_view_info.png)
+---
+layout: false
+.left-column[
+  ## Sending information to the view
+]
+.right-column[
+```
+def index
+  @dinosaur = Dinosaur.new
+end
+```
+]
+---
+layout: false
+.left-column[
+  ## Receiving information in the controller
+]
+.right-column[
+If we visit `/dinos/17`, we will grab the `:id` from the URL in params:
+```
+def show
+  @dinosaur = Dinosaur.find_by(params[:id])
+end
+```
+]
+---
+layout: false
+.left-column[
+  ## Params from a URL
+]
+.right-column[
+This URL:
+```
+http://localhost:3000/dinos?species=mastodon;age=jurassic
+```
+will have these parameters in the controller:
+```
+params['species'] == 'mastodon'
+params['age'] == 'jurassic'
+```
+]
+---
+layout: false
+.left-column[
+  ## Sanitizing Params
+]
+.right-column[
+Sanitize params to allow them to be used to create or update a Model.
+```
+private
+
+def sanitized_params
+  params.require(:dinosaur).permit(:species, :age)
+end
+```
+Then:
+```
+def create
+  Dinosaur.create(sanitized_params)
+end
+```
+]
