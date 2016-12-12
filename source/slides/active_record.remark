@@ -207,38 +207,3 @@ end
 2.3.0 :005 >
 ```
 ]
----
-template: inverse
-
-## ORM - Object-relational mapping
----
-layout: false
-.left-column[
-  ## What is an ORM?
-]
-.right-column[
-Object-relational mapping (ORM) libraries map database tables to classes.
-
-#### Example:
-If
-a database has a table called `customers`, our program will have a class named `Customer`.
-Rows in this table correspond to objects of the class
-
-Within that object, attributes are
-used to get and set the individual columns.
-]
----
-layout: false
-.left-column[
-  ## What is an ORM?
-  ## Example
-]
-.right-column[
-### - ActiveRecord
-### - [DataMapper](http://datamapper.org/)
-]
----
-template: inverse
-
-## Demo
----
