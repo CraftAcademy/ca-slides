@@ -1,0 +1,209 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Active Record
+## Migrations and CRUD functions
+---
+layout: false
+.left-column[
+  ## Model naming conventions
+]
+.right-column[
+  ### Single thing, like `User`. Rails will automatically pluralize in the right context.
+
+  ### Camelcase: `ShoppingCart`
+]
+---
+layout: false
+.left-column[
+  ## Migrations
+]
+.right-column[
+  Assuming we have a `User` model.
+  ```
+  rails g migration AddNameToUser name:string
+  ```
+  Creates a migration file:
+  ```
+  class AddNameToUser < ActiveRecord::Migration[5.0]
+    def change
+      add_column :users, :name, :string
+    end
+  end
+  ```
+]
+---
+layout: false
+.left-column[
+  ## Migrations
+  ## Running the migration
+]
+.right-column[
+  Assuming we have a `User` model.
+  ```
+  rails g migration AddNameToUser name:string
+  ```
+  Creates a migration file:
+  ```
+  class AddNameToUser < ActiveRecord::Migration[5.0]
+    def change
+      add_column :users, :name, :string
+    end
+  end
+  ```
+  `rails db:migrate` Now the schema looks like:
+  ```
+  ActiveRecord::Schema.define(version: 20161212153839) do
+
+    # These are extensions that must be enabled in order to support this database
+    enable_extension "plpgsql"
+
+    create_table "users", force: :cascade do |t|
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+      t.string   "name"
+    end
+
+  end
+  ```
+]
+---
+template: inverse
+
+# Never directly edit the schema!
+## If you make a mistake and need to change things, create a new migration.
+---
+layout: false
+.left-column[
+  ## CRUD functions
+]
+.right-column[
+### - Create
+### - Read
+### - Update
+### - Delete
+]
+---
+layout: false
+.left-column[
+  ## Create
+]
+.right-column[
+```
+user = User.create(name: 'Amber')
+```
+]
+---
+layout: false
+.left-column[
+  ## Create
+  ## Multi-step Create
+]
+.right-column[
+```
+user = User.create(name: 'Amber')
+```
+```
+user = User.new
+user.name = 'Amber'
+user.save
+```
+]
+---
+layout: false
+.left-column[
+  ## Read Functions
+]
+.right-column[
+```
+@users = User.all
+```
+```
+2.3.0 :005 > User.all
+  User Load (0.6ms)  SELECT "users".* FROM "users"
+ => #<ActiveRecord::Relation [#<User id: 1,
+   created_at: "2016-12-12 15:54:03",
+   updated_at: "2016-12-12 15:54:03", name: "Amber">]>
+```
+```
+User.first
+User.last
+User.find_by(name: 'Amber')
+User.find(params[:id])
+User.where(city: 'Gothenburg')
+User.count
+```
+]
+---
+layout: false
+.left-column[
+  ## Update
+]
+.right-column[
+```
+user = User.find_by(name: 'Amber')
+user.update(name: 'Badass')
+```
+]
+---
+layout: false
+.left-column[
+  ## Delete
+]
+.right-column[
+```
+user = User.find_by(name: 'Amber')
+user.destroy
+```
+]
+---
+layout: false
+.left-column[
+  ## Validations
+]
+.right-column[
+```
+class User < ApplicationRecord
+  validates_presence_of :name
+end
+```
+```
+2.3.0 :001 > @user = User.new
+ => #<User id: nil, created_at: nil,updated_at: nil,
+   name: nil>
+2.3.0 :002 > @user.save
+   (0.4ms)  BEGIN
+   (0.3ms)  ROLLBACK
+ => false
+```
+]
+---
+layout: false
+.left-column[
+  ## Validations
+  ## Validation Errors
+]
+.right-column[
+```
+class User < ApplicationRecord
+  validates_presence_of :name
+end
+```
+```
+2.3.0 :001 > @user = User.new
+ => #<User id: nil, created_at: nil,updated_at: nil,
+   name: nil>
+2.3.0 :002 > @user.save
+   (0.4ms)  BEGIN
+   (0.3ms)  ROLLBACK
+ => false
+```
+```
+2.3.0 :004 > @user.errors.messages
+ => {:name=>["can't be blank"]}
+2.3.0 :005 >
+```
+]
