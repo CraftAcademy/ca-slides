@@ -1,0 +1,223 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Active Record
+## Associations & Nested Routes
+---
+layout: false
+.left-column[
+  ## Active Record Associations
+]
+.right-column[
+  ## `has_one`
+  ## `has_many`
+  ## `belongs_to`
+  ## `has_one :through`
+  ## `has_many :through`
+  ## `has_and_belongs_to_many`
+]
+---
+layout: false
+.left-column[
+  ## `has_one`
+]
+.right-column[
+  On the model:
+  ```
+  class User < ApplicationRecord
+    has_one :account
+  end
+  ```
+  In the migration file:
+  ```
+  class CreateAccounts < ActiveRecord::Migration[5.0]
+    def change
+      create_table :accounts do |t|
+        t.belongs_to :user, index: true
+        t.timestamps
+      end
+    end
+  end
+  ```
+]
+---
+layout: false
+.left-column[
+  ## `has_many`
+]
+.right-column[
+  On the model:
+  ```
+  class User < ApplicationRecord
+    has_many :articles
+  end
+  ```
+  In the migration file:
+  ```
+  class CreateArticles < ActiveRecord::Migration[5.0]
+    def change
+      create_table :articles do |t|
+        t.belongs_to :user, index: true
+        t.timestamps
+      end
+    end
+  end
+  ```
+]
+---
+layout: false
+.left-column[
+  ### `belongs_to`
+]
+.right-column[
+  On the model:
+  ```
+  class Article < ApplicationRecord
+    belongs_to :user
+  end
+  ```
+]
+---
+template: inverse
+
+# Demo
+## Dinosaurs & Bones
+---
+layout: false
+.left-column[
+  ### `has_many` and `belongs_to`
+]
+.right-column[
+```
+rails g model Bone dinosaur:belongs_to
+```
+The migration looks like:
+```
+class CreateBones < ActiveRecord::Migration[5.0]
+  def change
+    create_table :bones do |t|
+      t.references :dinosaur, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end
+```
+And schema:
+```
+  create_table "bones", force: :cascade do |t|
+    t.integer  "dinosaur_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["dinosaur_id"], name: "index_bones_on_dinosaur_id", using: :btree
+  end
+
+  create_table "dinosaurs", force: :cascade do |t|
+    t.string   "species"
+    t.string   "age"
+    t.integer  "museum_number"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_foreign_key "bones", "dinosaurs"
+end
+```
+]
+---
+layout: false
+.left-column[
+  ### `has_many` and `belongs_to`
+]
+.right-column[
+Here's the generated schema:
+```
+  create_table "bones", force: :cascade do |t|
+    t.integer  "dinosaur_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["dinosaur_id"], name: "index_bones_on_dinosaur_id", using: :btree
+  end
+
+  create_table "dinosaurs", force: :cascade do |t|
+    t.string   "species"
+    t.string   "age"
+    t.integer  "museum_number"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_foreign_key "bones", "dinosaurs"
+end
+```
+]
+---
+layout: false
+.left-column[
+  ### `has_many` and `belongs_to`
+]
+.right-column[
+And in our models:
+```
+class Bone < ApplicationRecord
+  belongs_to :dinosaur
+end
+```
+We have to add the association on our `Dinosaur` model:
+```
+class Dinosaur < ApplicationRecord
+  validates_presence_of :species
+
+  has_many :bones
+end
+```
+]
+---
+layout: false
+.left-column[
+  ### `has_many` and `belongs_to` methods
+]
+.right-column[
+Now we can use association methods:
+```
+dinosaur.bones
+bone.dinosaur
+```
+Bones _require_ a dinosaur:
+```
+bone = Bone.create(dinosaur: dinosaur)
+```
+We can also _make_ a dinosaur to own our bone:
+```
+bone.create_dinosaur(species:'trex')
+```
+(remember that we required dinosaurs to have a species).
+]
+---
+template: inverse
+
+# Nested Routes
+---
+## Nested Resources
+```
+  resources :dinosaurs, only: [:index, :show] do
+    resources :bones, only: [:show]
+  end
+```
+If we run `rails routes`:
+
+```shell
+12:50 $ rails routes
+      Prefix Verb URI Pattern                                 Controller#Action
+dinosaur_bone GET  /dinosaurs/:dinosaur_id/bones/:id(.:format) bones#show
+   dinosaurs GET  /dinosaurs(.:format)                        dinosaurs#index
+    dinosaur GET  /dinosaurs/:id(.:format)                    dinosaurs#show
+```
+Our helper methods:
+```
+dinosaur_bone_path(@dinosaur, @bone)
+dinosaur_path(@dinosaur)
+```
