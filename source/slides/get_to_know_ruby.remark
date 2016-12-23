@@ -1,0 +1,87 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Get To Know Ruby
+## A Path To Programmer Happiness
+---
+layout: false
+.left-column[
+  ## Influences
+]
+.right-column[
+
+  A big part of this presentation is influenced by
+  the wonderful work of Why the Lucky Stiff published in
+  _["Why’s (Poignant) Guide to Ruby"](http://poignant.guide/book/)_
+
+  If you want to read it, read it. I think it's a cool book,
+  a bit "yesterday" but still very much relevant.
+
+  ![Cover](http://poignant.guide/images/2007-cover-shut.jpg)
+]
+---
+
+layout: false
+.left-column[
+  ## Konnichiwa, Ruby!
+]
+.right-column[
+
+  ## Does it have to be hard?
+  #### Read the following statement out loud
+  ```ruby
+  5.times { print "Yo!" }
+  ```
+  #### And now try to read this
+  ```
+  public class PrintYo {
+    public static void main(String[] args) {
+          int i = 0;
+          int j = 5;
+          for(i = 1; i <= j; i++){
+            System.out.print("Yo!");
+          }
+        }
+      }
+  ```
+]
+---
+
+layout: false
+.left-column[
+  ## Philosphy
+]
+.right-column[
+
+
+
+  * _"Ruby will teach you to express your ideas through a computer. You will be writing stories for a machine."_
+
+  * _"The language will become a tool for you to better connect your mind to the world."_
+
+  * _"...We can no[t] call it a computer language. It is ** coderspeak **. It is the language of our thoughts."_
+
+]
+---
+layout: false
+.left-column[
+  ## Moving on...
+]
+.right-column[
+
+## Another example
+  ```ruby
+  ['toast', 'cheese', 'wine'].each do |food|
+    print food.capitalize
+  end
+  ```
+  * Yes, it's less readable and sentence-like
+
+  * With a bit of imagination you can still understand what's going on.
+
+### In human language
+  _"With the words ‘toast’, ‘cheese’, and ‘wine’: take each food and print it capitalized."_
+]

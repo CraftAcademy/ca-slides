@@ -36,8 +36,8 @@ end
 
 activate :deploy do |deploy|
   deploy.deploy_method   = :rsync
-  deploy.host            = ENV.fetch('DEPLOY_HOST')
-  deploy.path            = ENV.fetch('DEPLOY_DIR')
+  #deploy.host            = ENV.fetch('DEPLOY_HOST')
+  #deploy.path            = ENV.fetch('DEPLOY_DIR')
   deploy.build_before    = true
   deploy.clean           = true
 end
