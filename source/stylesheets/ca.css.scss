@@ -3,23 +3,37 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic');
 
 @import 'variables';
+@import 'fonts';
 
 body {
-  font-family: 'Droid Serif';
+  font-family: 'gotham-light';
 }
 
 h1,
 h2,
 h3 {
-  font-family: 'Yanone Kaffeesatz';
+  font-family: 'gotham-medium';
   font-weight: 400;
   margin-bottom: 0;
 }
 
 .remark-slide-content {
-  h1 { font-size: 3em; }
-  h2 { font-size: 2em; }
-  h3 { font-size: 1.6em; }
+  h1,
+  h2,
+  h3 {
+  }
+
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.5em; }
+  h3 { font-size: 1em; }
+
+  p,
+  ul {
+    font-size: .9em;
+    line-height: 1.6em;
+  }
+
+  .remark-slide-number  { font-size: 16px; }
 }
 
 .footnote {
@@ -40,7 +54,7 @@ li p {
 }
 
 a {
-  color: $primary; //rgb(249, 38, 114);
+  color: $primary;
   text-decoration: none;
 
   > code {
@@ -89,8 +103,10 @@ code {
 
 .inverse {
   background: $primary;
-  color: #777872;
+  color: #f3f3f3;
   text-shadow: 0 0 20px #333;
+
+  h2 { font-family: 'gotham-light' }
 
   h1,
   h2 {
@@ -117,12 +133,12 @@ code {
 
   .first,
   .second {
-    padding: 1px 20px;
-    height: 90px;
-    width: 120px;
     -moz-box-shadow: 0 0 10px #777;
     -webkit-box-shadow: 0 0 10px #777;
     box-shadow: 0 0 10px #777;
+    height: 90px;
+    padding: 1px 20px;
+    width: 120px;
   }
 
   .first {
@@ -152,14 +168,16 @@ code {
   h3:last-child {
     color: #000;
   }
+
+  h2 { font-size: 1.2em; }
 }
 
 .right-column {
   float: right;
+  padding-left: 1em;
   padding-top: 1em;
   width: 75%;
 }
-
 
 // Custom
 img {
