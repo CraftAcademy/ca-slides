@@ -1,0 +1,110 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Rails: Form Helpers
+## _form_tag_ vs _form_for_
+???
+Forms are One of the essential interface for user input in web applications.
+
+Rails provides you with helpers for generating form markup with ease.
+
+We're going to cover the `form_tag` and `form_for` today. What's the difference between both, and when to use them.
+---
+## Basic Forms with form_tag
+---
+layout: false
+class: middle
+
+### erb
+```erb
+<%= form_tag do %>
+  Add form contents here
+<% end %>
+```
+
+### Generated HTML
+```html
+<form action="/" accept-charset="UTF-8" method="post">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <input type="hidden" name="authenticity_token"
+          value="a_very_long_security_token==" />
+  Add form contents here
+</form>
+```
+???
+form_tag
+- Helper method in ActionView
+- Follows the url provided
+---
+template: inverse
+## Demo: Search form
+---
+layout: false
+class: middle
+
+### Search form
+```erb
+<%= form_tag(search_path, method: "get") do %>
+  <%= label_tag(:keyword, "Search for:") %>
+  <%= text_field_tag(:keyword) %>
+  <%= submit_tag("Search") %>
+<% end %>
+```
+---
+class: middle
+### Generated HTML
+```html
+<form accept-charset="UTF-8" action="/search" method="get">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <label for="keyword">Search for:</label>
+  <input id="keyword" name="keyword" type="text" />
+  <input name="commit" type="submit" value="Search" />
+</form>
+```
+---
+template: inverse
+
+## Forms linked to a model using form_for
+---
+layout: false
+class: middle
+
+### erb
+```erb
+<%= form_for @new_article do |f| %>
+  <%= f.label :title %> <br>
+  <%= f.text_field :title %> <br>
+  <%= f.label :content %> <br>
+  <%= f.text_area :content, size: "60x12" %> <br>
+  <%= f.label :author %> <br>
+  <%= f.text_field :author %> <br>
+  <%= f.submit "Create Article" %>
+<% end %>
+```
+---
+layout: false
+class: middle
+
+### Generated HTML
+
+```
+<form class="new_article" id="new_article" action="/articles" accept-charset="UTF-8" method="post">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <input type="hidden" name="authenticity_token" value="..." />
+  <label for="article_title">Title</label> <br>
+  <input type="text" name="article[title]" id="article_title" /> <br>
+  <label for="article_content">Content</label> <br>
+  <textarea name="article[content]" id="article_content" cols="60" rows="12"/> <br>
+  <label for="article_author">Author</label> <br>
+  <input type="text" name="article[author]" id="article_author" /> <br>
+  <input type="submit" name="commit" value="Create Article" data-disable-with="Create Article" />
+</form>
+```
+---
+template: inverse
+
+## Questions?
+[Thanks 🖖]
