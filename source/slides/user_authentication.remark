@@ -1,0 +1,79 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# User Authentication with Devise
+---
+layout: false
+.left-column[
+  ## Install Devise
+]
+.right-column[
+  `gem 'devise'`, bundle
+  ```
+  rails g devise:install
+  rails g devise:views
+  ```
+]
+---
+layout: false
+.left-column[
+  ## Create a Devise Model
+]
+.right-column[
+  ```
+  rails g devise Researcher
+  ```
+  Out of the box, you get:
+  - Views to sign up, sign in, cancel account and edit your "profile" (just email and password for now)
+  - Helper methods to check if a user is logged in
+]
+---
+layout: false
+.left-column[
+  ## Authenticate users
+]
+.right-column[
+  Say we want to prevent folks who aren't logged in from accessing the specific dinosaur pages. In the controller:
+  ```
+  before_action :authenticate_researcher!, only: [:show]
+  ```
+
+  We can also allow users to view content on the condition that it is associated with their record.
+  ```
+  if current_user == @user
+    // show something like an edit article page or the like
+  else
+    // perhaps an error message that they don't have permission
+    //  to view that page
+  end
+  ```
+]
+---
+layout: false
+.left-column[
+  ## Overwriting the path after sign_up
+]
+.right-column[
+  We may not want to go to the root page after sign-up. We can create all of the devise controllers so we can both see and edit them as needed.
+  ```
+  rails generate devise:controllers researchers
+  ```
+  In `routes.rb`, tell your application to head to *your* registrations controller first.
+  ```
+  devise_for :researchers, controllers: { registrations: 'researchers/registrations' }
+  ```
+  Open up the registrations_controller:
+  ```
+  #The path used after sign up.
+  def after_sign_up_path_for(resource)
+    prehistory_dinosaur_path(id: 2)
+  end
+  ```
+  Now instead of going to the default, root, we will go to the second dinosaur.
+
+  You can overwrite any of the devise controller actions, or add additional information. Keep the `super` to maintain the original Devise functionality, as well as any new functionality you want to add.
+]
+---
