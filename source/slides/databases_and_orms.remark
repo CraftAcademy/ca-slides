@@ -27,7 +27,7 @@ layout: false
 
   Examples:
   - A telephone directory
-  -
+
 ]
 ???
 A telephone directory: Used to store information about people, their phone numbers, and other contact details
@@ -39,10 +39,10 @@ layout: false
   ## Types of DBMS
 ]
 .right-column[
-### - Navigational DBMS
-### - Relational DBMS
-### - SQL DBMS
-### - NoSQL DBMS
+#### - Navigational DBMS
+#### - Relational DBMS
+#### - SQL DBMS
+#### - NoSQL DBMS
 ]
 ???
 During this course we'll be using Relational DBMS to build our application. You can have a look at others if you curious about how they work.
@@ -73,10 +73,10 @@ layout: false
   ## Relational DBMS Applications
 ]
 .right-column[
-### - MySQL
-### - PostgreSQL
-### - Microsoft SQL
-### - etc.
+#### - MySQL
+#### - PostgreSQL
+#### - Microsoft SQL
+#### - etc.
 ]
 ---
 template: inverse
@@ -105,11 +105,10 @@ layout: false
   ## Example
 ]
 .right-column[
-### - ActiveRecord
-### - [DataMapper](http://datamapper.org/)
+#### - [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html)
+#### - [DataMapper](http://datamapper.org/)
 ]
 ---
 template: inverse
 
 ## Demo
----
