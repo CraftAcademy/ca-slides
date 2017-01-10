@@ -35,18 +35,23 @@ layout: false
   ```ruby
   5.times { print "Yo!" }
   ```
-  #### And now try to read this
-  ```
-  public class PrintYo {
-    public static void main(String[] args) {
-          int i = 0;
-          int j = 5;
-          for(i = 1; i <= j; i++){
-            System.out.print("Yo!");
-          }
+  ### In human language
+   _"Five times print “Yo!”."_
+
+#### And now try to read this
+```
+public class PrintYo {
+  public static void main(String[] args) {
+        for(int i = 1; i <= 5; i++){
+          System.out.print("Yo!");
         }
       }
-  ```
+    }
+```
+The first example is written in ** Ruby**, the
+second in ** Java **.
+
+Any thoughts?
 ]
 ---
 
@@ -58,11 +63,11 @@ layout: false
 
 
 
-  * _"Ruby will teach you to express your ideas through a computer. You will be writing stories for a machine."_
+* _"Ruby will teach you to express your ideas through a computer. You will be writing stories for a machine."_
 
-  * _"The language will become a tool for you to better connect your mind to the world."_
+* _"The language will become a tool for you to better connect your mind to the world."_
 
-  * _"...We can no[t] call it a computer language. It is ** coderspeak **. It is the language of our thoughts."_
+* _"...We can no[t] call it a computer language. It is ** coderspeak **. It is the language of our thoughts."_
 
 ]
 ---
