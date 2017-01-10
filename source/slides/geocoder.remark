@@ -1,0 +1,71 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Geocoder
+## Translate addresses into latitude & longitude, plus a bunch of other stuff
+---
+layout: false
+.left-column[
+  ## Install geocoder
+]
+.right-column[
+  ## Add to Gemfile: `gem 'geocoder'`
+  ## Bundle
+]
+---
+layout: false
+.left-column[
+  ## Add latitude & longitude to model
+]
+.right-column[
+  ```
+  rails g migration AddLatitudeAndLongitudeToModel
+    latitude:float longitude:float
+  ```
+]
+---
+layout: false
+.left-column[
+  ## On the model
+]
+.right-column[
+  ```
+  geocoded_by :address
+  after_validation :geocode
+  ```
+]
+---
+layout: false
+.left-column[
+  ### Distances
+]
+.right-column[
+  In the console:
+  ```
+  Bone.near('Gothenburg, Sweden', 100)
+  ```
+  Finds bones within 100 miles of Gothenburg
+]
+---
+layout: false
+.left-column[
+  ### Tips and Tricks
+]
+.right-column[
+```
+bone = Bone.last
+bone.geocoded?
+bone.nearbys(100)
+bone.distance_from(bone2)
+```
+If you want users to enter street, zip, country, etc., use something like this:
+```
+geocoded_by :address
+
+def address
+  [street, city, state, country].compact.join(', ')
+end
+```
