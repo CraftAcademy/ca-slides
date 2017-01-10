@@ -29,6 +29,8 @@ layout: false
   Out of the box, you get:
   - Views to sign up, sign in, cancel account and edit your "profile" (just email and password for now)
   - Helper methods to check if a user is logged in
+
+  Now let's add a `name` attribute to the `Researcher`.
 ]
 ---
 layout: false
