@@ -1,0 +1,295 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Introduction to jQuery
+---
+## Overview
+---
+layout: false
+class: middle
+
+- Javascript library used to simplify common tasks
+- Has been around since 2006
+- The most popular JS library used
+- Provides easy ways of selecting sets of DOM.red[*] elements
+- jQuery makes it easy to:
+  - Find element in an HTML document
+  - Change HTML content.
+  - Listen to what a user does and react accordingly
+  - Animate content on the page
+
+.footnote[.red[*] Document Object Model]
+???
+The Document Object Model (DOM) is a programming interface for HTML and XML documents.
+It provides a structured representation of the document and it defines a way that the structure can be accessed from programs so that they can change the document structure, style and content.
+---
+template: inverse
+## Document Object Model
+---
+layout: false
+class: middle
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document Title</title>
+</head>
+<body>
+  <h1>Awesome Header</h1>
+  <p>Some text here</p>
+</body>
+</html>
+```
+---
+class: middle
+
+### DOM Tree
+```
+
+  Document
+  |-html
+    |-head
+    | |-meta
+    | |-title
+    |   |-Document Title
+    |-body
+      |-h1
+      |  |-Awesome Header
+      |-p
+        |-Some text here
+>
+```
+
+???
+Inside the DOM, HTML elements become 'nodes' which have relationships with one another.
+
+One problem with the DOM is that each browser has a slightly different DOM interface. And the applications we're building are expected to work with most browsers
+
+This is where jQuery comes to help. If our JavaScript uses jQuery to interact
+with the DOM then it will work on most modern browsers.
+---
+template: inverse
+
+## How to get jQuery?
+---
+layout: false
+class: middle
+
+1. You can download and use as a local library ([https://jquery.com](https://jquery.com))
+
+2. Using jQuery with a CDN
+
+  ```html
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  ```
+3. Using package managers (`npm` or `bower`)
+
+  ```shell
+  $ npm install jquery
+  ```
+  or
+  ```shell
+  $ bower install jquery
+  ```
+---
+template: inverse
+
+## Using jQuery
+---
+layout: false
+.left-column[
+  ## Selectors
+]
+.right-column[
+- jQuery allows you to select an element or a set of DOM elements
+- Use the dollar sign `$` and in parenthesis, provide a selector
+  ```javascript
+  $(<code>);
+  ```
+
+- Use CSS selectors
+- Can select by ID or by classes
+]
+
+???
+The same way we use css selector to define css properties of an element in stylesheet
+---
+layout: false
+.left-column[
+  ## Selectors
+]
+.right-column[
+```javascript
+// select all the heading 1 elements
+$('h1');
+
+// select all paragraph elements
+$('p');
+
+// select all paragraphs and divs
+$('p, div');
+
+// select all anchors within a paragraph
+$('p a');
+
+// select elements by id (using #)
+$('#article');
+
+// select elements by class (using .)
+$('.social-icon');
+```
+]
+---
+layout: false
+.left-column[
+  ## Selectors
+  ## Functions
+]
+.right-column[
+- jQuery selectors will return a set of objects that you can then manipulate
+- jQuery provides many functions we can apply to the selector result
+- [API Documentation](http://api.jquery.com/)
+]
+---
+layout: false
+.left-column[
+  ## Selectors
+  ## Functions
+]
+.right-column[
+```javascript
+// change font size of heading 1 (using css())
+$('h1').css('font-size', '14px');
+
+// set the color of all paragraphs to blue
+$('p').css('color', 'blue');
+
+// fetch an element's text
+$('p').text();
+
+// modify the text
+$('h1').text('An even better title');
+
+// select all anchors within a paragraph
+$("p").css('font-size', '14px')
+      .css('color', 'red')
+      .css('background-color', 'rgb(225, 225, 225)');
+```
+]
+---
+layout: false
+.left-column[
+  ## Selectors
+  ## Functions
+  ## Common Functions
+]
+.right-column[
+## `css()`
+
+- Takes 2 arguments (strings): the `property` and the `value`
+- When you provide 1 argument, it returns the current property's value
+
+  ```javascript
+      // set the color of all paragraphs to blue
+      $('p').css('color', 'blue');
+
+      // fetch paragraph's color
+      var color = $('p').css('color');
+
+      console.log(color);
+      > 'blue'
+  ```
+]
+---
+layout: false
+.left-column[
+  ## Selectors
+  ## Functions
+  ## Common Functions
+]
+.right-column[
+## `text()`
+
+- Allows you to get/set the text value of an element
+- When no argument is provided, the function will get the text
+- 1 argument (string): set the text
+
+  ```javascript
+      // fetch an element's text
+      $('p').text();
+
+      // modify text
+      $('h1').text('An even better title');
+  ```
+]
+---
+layout: false
+.left-column[
+  ## Selectors
+  ## Functions
+  ## Common Functions
+]
+.right-column[
+## `html()`
+
+- Allows you to get/set the HTML markup of an element
+- When no argument is provided, the function will get the HTML
+- 1 argument (string): set the HTML
+
+  ```javascript
+      // fetch an element's text
+      $('#social-icons').html();
+
+      $('h1').html('<ul><li>icon1</li><li>icon2</li></ul>');
+  ```
+]
+---
+layout: false
+.left-column[
+  ## Selectors
+  ## Functions
+  ## Common Functions
+]
+.right-column[
+## `val()`
+
+- Allows you to get/set values of form elements
+
+  ```javascript
+      var firstName = $('#first-name').val();
+
+      if (firstName == '') {
+        $('#first-name').val('Please enter a valid name');
+      }
+  ```
+]
+---
+layout: false
+.left-column[
+  ## Selectors
+  ## Functions
+  ## Common Functions
+]
+.right-column[
+## `ready()`
+
+- Want some code executed when page is loaded?
+- We want to ensure that the page content is entirely loaded
+- This is crucial, especially if our code relies on other scripts files being loaded.
+
+  ```javascript
+      $(document).ready( function() {
+        // Place the code to execute after the document is ready here
+      })
+  ```
+]
+---
+template: inverse
+
+## Questions?
+[Thanks 🖖]
