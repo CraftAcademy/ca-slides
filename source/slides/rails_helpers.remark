@@ -86,6 +86,8 @@ layout: false
 ]
 .right-column[
   ```
+  # spec/helpers/find_dinosaur_helper_spec.rb
+
     RSpec.describe FindDinosaurHelper, type: :helper do
       describe "find_dinosaur" do
         it "finds a dinosaur" do
