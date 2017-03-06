@@ -19,6 +19,33 @@ layout: false
 ---
 layout: false
 .left-column[
+  ## Model generators
+]
+.right-column[
+  Creating a `Dinosaur` model.
+  ```
+  rails g model Dinosaur
+  ```
+  Creates a model:
+  ```
+  class Dinosaur < ApplicationRecord
+  end
+  ```
+  Also creates a migration file:
+  ```
+  class CreateDinosaurs < ActiveRecord::Migration[5.0]
+    def change
+      create_table :dinosaurs do |t|
+
+        t.timestamps
+      end
+    end
+  end
+  ```
+]
+---
+layout: false
+.left-column[
   ## Migrations
 ]
 .right-column[
@@ -205,5 +232,25 @@ end
 2.3.0 :004 > @user.errors.messages
  => {:name=>["can't be blank"]}
 2.3.0 :005 >
+```
+]
+---
+layout: false
+.left-column[
+  ## Factories
+]
+.right-column[
+```
+FactoryGirl.define do
+  factory :dinosaur do
+    species: 'MySpecies'
+    age: 'Jurassic'
+    museum_number: 1
+  end
+end
+```
+```
+FactoryGirl.create(:dinosaur)
+FactoryGirl.create(:dinosaur, species: 'Pterodactyl'
 ```
 ]
