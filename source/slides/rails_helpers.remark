@@ -1,0 +1,99 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Rails Helpers
+## Common and Custom Helpers
+---
+layout: false
+.left-column[
+  ## Mailbox helper example
+]
+.right-column[
+```
+module MailboxHelper
+  def unread_messages_count
+    # how to get the number of unread messages for the current user
+    # using mailboxer
+    mailbox.inbox(unread: true).count(:id, distinct: true)
+  end
+end
+```
+Calling this method:
+```
+# app/views/mailbox/_folders.html.erb
+
+<span class="label label-danger pull-right"><%= unread_messages_count %></span>
+
+```
+]
+---
+layout: false
+.left-column[
+  ## Custom Helpers
+]
+.right-column[
+```
+rails g helper FindDinosaur
+```
+Creates a helper:
+```
+module FindDinosaurHelper
+end
+```
+We can add any method we like into this `module` to clean up our controllers / views:
+```
+module FindDinosaurHelper
+  def find_dinosaur(params)
+    @dinosaur = Dinosaur.find_by(params[:id])
+  end
+end
+```
+In our controller, we would call the method with:
+```
+find_dinosaur(params)
+```
+]
+---
+layout: false
+.left-column[
+  ## Another Example
+]
+.right-column[
+  Complex view logic.
+  ```
+  <% if current_user && current_user.messages.count > 0 %>
+    <% @message_count %>
+  <% end %>
+  ```
+  Instead, we can use a helper. Create or add to a module or in `application_controller.rb`:
+  ```
+  helper_method :message_count
+
+  private
+
+  def message_count
+    @message_count if current_user && current_user.messages.count > 0
+  end
+  ```
+]
+---
+layout: false
+.left-column[
+  ## Testing helper methods
+]
+.right-column[
+  ```
+    RSpec.describe FindDinosaurHelper, type: :helper do
+      describe "find_dinosaur" do
+        it "finds a dinosaur" do
+          dinosaur = FactoryGirl.create(:dinosaur)
+          params = {id: dinosaur.id}
+          expect(helper.find_dinosaur(params).to eq dinosaur
+        end
+      end
+    end
+  ```
+]
