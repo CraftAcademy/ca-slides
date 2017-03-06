@@ -12,7 +12,7 @@ layout: false
   ## Model naming conventions
 ]
 .right-column[
-  Single thing, like `dinosaur`. Rails will automatically pluralize in the right context.
+  Single thing, like `Dinosaur`. Rails will automatically pluralize in the right context.
 
   Camelcase: `ShoppingCart`
 ]
