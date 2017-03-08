@@ -12,9 +12,36 @@ layout: false
   ## Model naming conventions
 ]
 .right-column[
-  Single thing, like `User`. Rails will automatically pluralize in the right context.
+  Single thing, like `Dinosaur`. Rails will automatically pluralize in the right context.
 
   Camelcase: `ShoppingCart`
+]
+---
+layout: false
+.left-column[
+  ## Model generators
+]
+.right-column[
+  Creating a `Dinosaur` model.
+  ```
+  rails g model Dinosaur
+  ```
+  Creates a model:
+  ```
+  class Dinosaur < ApplicationRecord
+  end
+  ```
+  Also creates a migration file:
+  ```
+  class CreateDinosaurs < ActiveRecord::Migration[5.0]
+    def change
+      create_table :dinosaurs do |t|
+
+        t.timestamps
+      end
+    end
+  end
+  ```
 ]
 ---
 layout: false
@@ -22,15 +49,15 @@ layout: false
   ## Migrations
 ]
 .right-column[
-  Assuming we have a `User` model.
+  Updating our `Dinosaur` model.
   ```
-  rails g migration AddNameToUser name:string
+  rails g migration AddNameToDinosaur name:string
   ```
   Creates a migration file:
   ```
-  class AddNameToUser < ActiveRecord::Migration[5.0]
+  class AddNameToDinosaur < ActiveRecord::Migration[5.0]
     def change
-      add_column :users, :name, :string
+      add_column :dinosaurs, :name, :string
     end
   end
   ```
@@ -42,15 +69,15 @@ layout: false
   ## Running the migration
 ]
 .right-column[
-  Assuming we have a `User` model.
+  Updating our `Dinosaur` model.
   ```
-  rails g migration AddNameToUser name:string
+  rails g migration AddNameToDinosaur name:string
   ```
   Creates a migration file:
   ```
-  class AddNameToUser < ActiveRecord::Migration[5.0]
+  class AddNameToDinosaur < ActiveRecord::Migration[5.0]
     def change
-      add_column :users, :name, :string
+      add_column :dinosaurs, :name, :string
     end
   end
   ```
@@ -61,7 +88,7 @@ layout: false
     # These are extensions that must be enabled in order to support this database
     enable_extension "plpgsql"
 
-    create_table "users", force: :cascade do |t|
+    create_table "dinosaurs", force: :cascade do |t|
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
       t.string   "name"
@@ -93,7 +120,7 @@ layout: false
 ]
 .right-column[
 ```
-user = User.create(name: 'Amber')
+dinosaur = Dinosaur.create(name: 'Amber')
 ```
 ]
 ---
@@ -104,12 +131,12 @@ layout: false
 ]
 .right-column[
 ```
-user = User.create(name: 'Amber')
+dinosaur = Dinosaur.create(name: 'Amber')
 ```
 ```
-user = User.new
-user.name = 'Amber'
-user.save
+dinosaur = Dinosaur.new
+dinosaur.name = 'Amber'
+dinosaur.save
 ```
 ]
 ---
@@ -119,22 +146,22 @@ layout: false
 ]
 .right-column[
 ```
-@users = User.all
+@dinosaurs = Dinosaur.all
 ```
 ```
-2.3.0 :005 > User.all
-  User Load (0.6ms)  SELECT "users".* FROM "users"
- => #<ActiveRecord::Relation [#<User id: 1,
+2.3.0 :005 > dinosaur.all
+  dinosaur Load (0.6ms)  SELECT "dinosaurs".* FROM "dinosaurs"
+ => #<ActiveRecord::Relation [#<dinosaur id: 1,
    created_at: "2016-12-12 15:54:03",
    updated_at: "2016-12-12 15:54:03", name: "Amber">]>
 ```
 ```
-User.first
-User.last
-User.find_by(name: 'Amber')
-User.find(params[:id])
-User.where(city: 'Gothenburg')
-User.count
+Dinosaur.first
+Dinosaur.last
+Dinosaur.find_by(name: 'Amber')
+Dinosaur.find(params[:id])
+Dinosaur.where(city: 'Gothenburg')
+Dinosaur.count
 ```
 ]
 ---
@@ -144,8 +171,8 @@ layout: false
 ]
 .right-column[
 ```
-user = User.find_by(name: 'Amber')
-user.update(name: 'Badass')
+dinosaur = Dinosaur.find_by(name: 'Amber')
+dinosaur.update(name: 'Badass')
 ```
 ]
 ---
@@ -155,8 +182,8 @@ layout: false
 ]
 .right-column[
 ```
-user = User.find_by(name: 'Amber')
-user.destroy
+dinosaur = Dinosaur.find_by(name: 'Amber')
+dinosaur.destroy
 ```
 ]
 ---
@@ -166,15 +193,15 @@ layout: false
 ]
 .right-column[
 ```
-class User < ApplicationRecord
+class dinosaur < ApplicationRecord
   validates_presence_of :name
 end
 ```
 ```
-2.3.0 :001 > @user = User.new
- => #<User id: nil, created_at: nil,updated_at: nil,
+2.3.0 :001 > @dinosaur = Dinosaur.new
+ => #<dinosaur id: nil, created_at: nil,updated_at: nil,
    name: nil>
-2.3.0 :002 > @user.save
+2.3.0 :002 > @dinosaur.save
    (0.4ms)  BEGIN
    (0.3ms)  ROLLBACK
  => false
@@ -188,22 +215,43 @@ layout: false
 ]
 .right-column[
 ```
-class User < ApplicationRecord
+class Dinosaur < ApplicationRecord
   validates_presence_of :name
 end
 ```
 ```
-2.3.0 :001 > @user = User.new
- => #<User id: nil, created_at: nil,updated_at: nil,
+2.3.0 :001 > @dinosaur = Dinosaur.new
+ => #<dinosaur id: nil, created_at: nil,updated_at: nil,
    name: nil>
-2.3.0 :002 > @user.save
+2.3.0 :002 > @dinosaur.save
    (0.4ms)  BEGIN
    (0.3ms)  ROLLBACK
  => false
 ```
 ```
-2.3.0 :004 > @user.errors.messages
+2.3.0 :004 > @dinosaur.errors.messages
  => {:name=>["can't be blank"]}
-2.3.0 :005 >
+2.3.0 :005 > @dinosaur.errors.full_messages
+ => ["Name can't be blank"]
+```
+]
+---
+layout: false
+.left-column[
+  ## Factories
+]
+.right-column[
+```
+FactoryGirl.define do
+  factory :dinosaur do
+    species: 'MySpecies'
+    age: 'Jurassic'
+    museum_number: 1
+  end
+end
+```
+```
+FactoryGirl.create(:dinosaur)
+FactoryGirl.create(:dinosaur, species: 'Pterodactyl')
 ```
 ]
