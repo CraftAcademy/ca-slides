@@ -1,0 +1,97 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# CLI & File Management
+---
+## The command prompt
+---
+layout: false
+class: middle
+## CLI Commands
+![command prompt](../images/cli/prompt.png)
+
+- the `command` is the CLI command/program which does a specific task
+- `options` or `flags` are given to `commands` to trigger certain behavior
+- `arguments` can be what the command is going to modify, or other options for the command
+- depending on the command, there can be 0 or more options and arguments
+---
+## CLI Commands (contd.)
+
+- `pwd` displays the path to the current working directory
+
+  ```shell
+  $ pwd
+  /Users/diraulo
+  $
+  ```
+
+- `clear` will clear out the commands in your current terminal window
+
+  before
+
+  ```shell
+  $ pwd                                                                                                                                                                               ruby-2.4.0 [⌚12:05PM]
+  /Users/diraulo
+  $ clear
+  ```
+
+  after
+
+  ```shell
+  $
+  ```
+---
+## CLI Commands (contd.)
+
+- `ls` list files and folders in the current directory
+- `ls -al` list details of all files hidden and non-hidden files or directory (`ls -a -l`)
+- `ls -alt` list details of all files and sort by time modified
+-----
+- `cd` - Change directory
+- `mkdir` - make directory
+- `touch` - creates an empty file (`touch filename`)
+- `cp` - copy files or directories (need the `-r` flag to copy directories)
+- `rm` - remove files or directories
+- `mv` - move files between directories (also used to rename files)
+---
+## CLI Commands (contd.)
+
+### 1. Pipes (`|`)
+
+  Used to pass the output of one command to another for further processing
+
+### 2. Redirects
+
+- `>` - Redirect output from a command to a file on disk. Note: if the file already exist, it will be erased and overwritten without warning.
+- `>>` - Append output from a command to an existing file on disk.
+- `<` - Read a command's input from a disk file, rather than the user.
+---
+template: inverse
+## Git bash prompt
+---
+layout: false
+class: middle
+![git bash prompt](../images/cli/gitprompt.png)
+
+[Documentation](https://github.com/magicmonty/bash-git-prompt)
+---
+template: inverse
+## File Management
+---
+template: inverse
+## Miscellaneous
+---
+layout: false
+class: middle
+## - Auto-complete
+## - [Git autocomplete](https://github.com/bobthecow/git-flow-completion/wiki/Install-Bash-git-completion)
+## - Aliases
+## - etc.
+---
+template: inverse
+
+## Questions?
+[Thanks 🖖]
