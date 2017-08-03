@@ -1,0 +1,546 @@
+!!! ca
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Get To Know Ruby
+## A Path To Programmer Happiness
+---
+layout: false
+.left-column[
+  ## Konnichiwa, Ruby!
+]
+.right-column[
+
+  ## Does it have to be hard?
+  #### Read the following statement out loud
+  ```ruby
+  5.times { print "Yo!" }
+  ```
+  ### In human language
+   _"Five times print “Yo!”."_
+
+#### And now try to read this
+```
+public class PrintYo {
+  public static void main(String[] args) {
+        for(int i = 1; i <= 5; i++){
+          System.out.print("Yo!");
+        }
+      }
+    }
+```
+The first example is written in ** Ruby**, the
+second in ** Java **.
+
+** Any thoughts? **
+]
+
+---
+layout: false
+.left-column[
+  ## Philosphy
+![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/12/1480693256rubykin.png)
+]
+.right-column[
+
+_"For me the purpose of life is partly to have joy. Programmers often feel joy when they can concentrate on the creative side of programming, So Ruby is designed to make programmers happy."_ **Yukihiro Matsumoto** - creator of the Ruby programming language
+
+_It's just plain impossible to design a perfect language, because there are two ways to look at a language. One way is by looking at what can be done with that language. The other is by looking at how we feel using that language—how we feel while programming.
+I want to emphasize the how part._ more **Yukihiro Matsumoto**
+
+Interesting interview: http://www.artima.com/intv/ruby.html
+
+]
+---
+
+
+layout: false
+.left-column[
+## Simply simple
+![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/12/1480693256rubykin.png)
+
+]
+.right-column[
+
+### Some other radom quotes:
+* _"Ruby will teach you to express your ideas through a computer. You will be writing stories for a machine."_
+
+* _"The language will become a tool for you to better connect your mind to the world."_
+
+* _"...We can no[t] call it a computer language. It is ** coderspeak **. It is the language of our thoughts."_
+
+]
+---
+layout: false
+.left-column[
+  ## Moving on...
+]
+.right-column[
+
+## Another example
+  ```ruby
+  ['toast', 'cheese', 'wine'].each do |food|
+    print food.capitalize
+  end
+  ```
+  * Yes, it's less readable and sentence-like
+
+  * With a bit of imagination you can still understand what's going on.
+
+### In human language
+  _"With the words ‘toast’, ‘cheese’, and ‘wine’: take each food and print it capitalized."_
+]
+
+---
+layout: false
+.left-column[
+
+]
+
+.right-column[
+## "Everything in Ruby is an object"
+
+Everything in Ruby is an object and every object belongs to (is an instance of) a class.
+Being a part of a class gives the object lots of methods that can be used to do things.
+As an object-oriented language, Ruby classes holds lots of power and makes your life easier.
+
+```shell
+2.3.1 :001 > 47
+ => 47
+2.3.1 :002 > 47.nil?
+ => false
+2.3.1 :003 > 47.is_a? NilClass
+ => false
+2.3.1 :004 > 47.is_a? Fixnum
+ => true
+2.3.1 :005 > 47.is_a? Integer
+ => true
+2.3.1 :006 > 47.is_a? Float
+ => false
+2.3.1 :007 > 47.next
+ => 48
+2.3.1 :008 > 47.methods
+ => [... :singleton_class, :clone, :dup, :itself, :taint,
+ :tainted?, :untaint, :untrust, :trust, :untrusted?,
+ :methods, :protected_methods, :frozen?, :public_methods,
+ :singleton_methods, :!, :!=, #etc...]
+ ```
+]
+---
+layout: false
+.left-column[
+  ## "Everything.."
+]
+
+.right-column[
+
+### `nil` is an Object
+That’s right, this one is also an object and not just a keyword.
+```shell
+2.3.1 :001 > nothing = nil
+=> nil
+2.3.1 :002 > nothing.class
+=> NilClass
+```
+### `true` is an Object
+```shell
+2.3.1 :001 > my_truth = true
+=> true
+2.3.1 :002 > my_truth.class
+=> TrueClass
+```
+### `false` is an Object
+```shell
+2.3.1 :001 > my_lie = false
+=> false
+2.3.1 :002 > my_lie.class
+=> FalseClass
+```
+]
+---
+layout: false
+.left-column[
+## "Everything.."
+]
+
+.right-column[
+## You are free to extend the build in Ruby classes
+```
+2.3.1 :001 > def nil.say_hi
+2.3.1 :002?>   'Hello World'
+2.3.1 :003?> end
+=> :say_hi
+2.3.1 :004 > e = nil
+=> nil
+2.3.1 :005 > e.say_hi
+=> "Hello World"
+2.3.1 :006 > e.class
+=> NilClass
+```
+Weird? Yeah... Dengerous? Sometimes.
+
+Useful? We'll see about that.
+
+```
+2.3.1 :001 > class NilClass
+2.3.1 :002?>   def wtf?
+2.3.1 :003?>     "Whaddap Dawg?!?"
+2.3.1 :004?>   end
+2.3.1 :005?> end
+=> :wtf?
+2.3.1 :006 > def wtf?
+2.3.1 :007?>   end
+=> :wtf?
+2.3.1 :008 > nil.wtf?
+=> "Whaddap Dawg?!?"
+```
+]
+
+---
+layout: false
+.left-column[
+##The BasicObject
+]
+
+.right-column[
+![](http://s2.quickmeme.com/img/6b/6b4c607a729c22a31495ad2580d4165f6cbff0140d93626263e626d5364dfb09.jpg "Logo Title Text 1")
+_"`BasicObject` is the parent class of all classes in Ruby. It's an explicit blank class."_ Yeah, right! Over 100 built in methods.
+```shell
+2.3.1 :001 > BasicObject.methods
+=> [:new, :allocate, :superclass, :<=>, :module_exec, :class_exec,
+:<=, :>=, :==, :===, :include?, :included_modules, ...]
+# and so on, and so on...
+2.3.1 :002 > BasicObject.methods.count
+=> 101
+```
+
+**Too advanced?**
+
+Alright let's get some basics straight.
+]
+
+---
+layout: false
+.left-column[
+##One more thing!
+]
+
+.right-column[
+## Some weird shit?
+So if every class inherits from `BasicObject` but `BasicObject`'s parent (`superclass`) is nothing and nothing in Ruby (`nil`) is a class, then what is the superclass of that 'nothing'?
+```shell
+2.3.1 :001 > my_nothingness = nil
+ => nil
+2.3.1 :002 > my_nothingness.class
+ => NilClass
+2.3.1 :003 > my_nothingness.class.superclass
+ => Object
+2.3.1 :004 > my_nothingness.class.superclass.superclass
+ => BasicObject
+2.3.1 :005 > my_nothingness.class.superclass.superclass.superclass
+ => nil
+2.3.1 :006 > my_nothingness.class.superclass.superclass.superclass.class
+ => NilClass
+2.3.1 :007 > my_nothingness.class.superclass.superclass.superclass.superclass
+NoMethodError: undefined method `superclass' for nil:NilClass
+	from (irb):7
+	from /Users/thomas/.rvm/rubies/ruby-2.3.1/bin/irb:11:in `<main>'
+```
+]
+
+---
+layout: false
+.left-column[
+## Classes & Objects
+]
+
+.right-column[
+##Classes
+
+Classes are the blueprint from which objects are created. They hold data and have methods that interacts with that data, and are used to instantiate objects..
+
+##Objects
+
+An object is an instance of a class.
+### In plain language:
+A **truck** and a **car** are both objects of the class **Vehicle**. An **apple** and a **pear** are both objects of the class **Fruit**.
+Also, **Enterprise NCC 01** and **Voyager** are **instances** of the class **StarShip**.
+```ruby
+class StarShip
+  def initialize(designation)
+     @designation = designation
+  end
+end
+```
+]
+
+
+
+---
+layout: false
+.left-column[
+ ##Inheritance
+]
+
+.right-column[
+In real life, if you as an individual inherit something from someone, it likely means a few things:
+* You are related in some way to whomever you inherit from (in most cases, it is parent to children or grandparent to grandchildren), and
+* You are either getting a bunch of stuff ($$$ or equivalent) or you have gotten some biological attribute (say, a nose shape or hair type, etc).
+**The same goes for inheritance programming.**
+
+Let's have a look at the `StarShip` example and see if we can build a case for inheritance
+
+```ruby
+class FederationStarShip < StarShip
+  def initialize(designation, ship_class)
+     @ship_class = ship_class
+     super(designation)
+  end
+end
+
+class KlingonWarShip < StarShip
+  def initialize(designation, cloaking_capability)
+     @cloaking_capability = cloaking_capability
+     super(designation)
+  end
+end
+```
+
+]
+
+---
+layout: false
+.left-column[
+## What is `super`?
+]
+
+.right-column[
+
+Did you notice the `super` keyword we used in the `initialize`  method?
+
+```
+def initialize(designation, ship_class)
+   @ship_class = ship_class
+   super(designation)
+end
+```
+Called from a method, `super` searches along the method lookup path (the classes and modules available to the current object)
+for the next method of the same name as the one being executed.
+
+Such method, if present, may be defined in the superclass of the object‘s class, but may also be defined in the superclass‘s
+superclass or any class on the upward path, as well as any module mixed in to any of those classes.
+
+**Wow!**
+]
+
+---
+layout: false
+.left-column[
+## What is `initialize`?
+]
+
+.right-column[
+
+Whenever Ruby creates a new object, it looks for a method named `initialize` and executes it.
+Let's back up and clarify what a Ruby Constructor is.
+
+Objects are instances of a classs, right. At some point, an object need to be created - **instantiated**.
+
+**Ruby Constructor has 3 responsibilities**
+
+- **allocates space** for the object
+- **assigns instances** variables their initial values
+- **returns an instance** of that class
+
+The `initialize` method is used for the second job: _"assigns instances variables their initial values"_
+
+The method `.new` is a **class method and constructor**, `initialize` is an **instance method** used to assign **instance variables**
+]
+
+---
+layout: false
+.left-column[
+## Classes vs Modules?
+]
+
+.right-column[
+
+"A module cannot be subclassed or instantiated, and modules can implement mixins".
+
+Let's see some code:
+
+```
+module Designation
+  def state_designation
+   "I am a member of the #{self.class}"
+  end
+end
+
+class Borg
+  include Designation
+end
+
+class Federation
+  include Designation
+end
+```
+And this:
+
+```
+module ExecuteOrders
+  def self.go_to_warp(obj)
+    "#{obj.class} ship initiates warp drive..."
+  end
+end
+```
+
+]
+
+---
+
+layout: false
+.left-column[
+## Getter and Setter methods?
+]
+
+.right-column[
+
+Setter methods allow you to assign value to attributes. Getter methods allow you to read data.
+
+```
+class Federation
+  include Designation
+
+  def captain=(value)
+    @captain = value
+  end
+
+  def captain
+    @captain
+  end
+end
+```
+Or you could do this:
+
+```
+class Federation
+  include Designation
+
+  attr_accessor :captain
+end
+```
+
+Also, you have `attr_writer` and `attr_reader`. What do they do?
+
+]
+
+---
+
+layout: false
+.left-column[
+## Invoking methods
+]
+
+.right-column[
+
+### There are three ways to invoke a method in ruby
+
+```
+class Foo
+   def bar
+     'bar has been called'
+   end
+end
+```
+Now, you can do this in IRB:
+```
+obj = Foo.new
+=> #<Foo:0x007f8a83139fb0>
+obj.bar
+=> "bar has been called"
+obj.send(:bar)
+=> "bar has been called"
+obj.method(:bar).call
+=> "bar has been called"
+```
+]
+
+---
+
+layout: false
+.left-column[
+## Dynamic method calling
+]
+
+.right-column[
+
+And then there is the `eval` way... A dynamic method calling
+
+```
+eval 'obj.bar'
+```
+In Ruby you can create methods on the fly, add instance variables, define constants and invoke existing methods dynamically.
+That is pretty awesome (even if you can't see that right now)
+
+]
+
+---
+
+layout: false
+.left-column[
+## Safe Navigation Operator (&.)
+<sup><sup>This is an excercise - please complete all steps in IRB and make it work.</sup></sup>
+]
+
+.right-column[
+
+Let's say we have an `Account` class with an `owner` attribute. The `owner` should respond to a `name` and `address` method.s
+
+```
+class Account
+  attr_accessor :owner
+end
+
+class Person
+  attr_accessor :name, :address
+end
+```
+Here's how the `account` object can be instantiated
+```
+account = Account.new
+person = Person.new
+account.owner = person
+```
+
+Let's also say that we want to perform some action but only *if* the account owner name is present (holds a value) and there is a value
+
+```
+if account && account.owner && account.owner.address
+  # do some stuff
+  'did it blow up?'
+end
+```
+This can potentially blow up in our face and raise an exception. This would be better:
+
+```
+if account&.owner&.address
+  # do some stuff
+  'did it blow up?'
+end
+```
+
+]
+
+---
+
+layout: false
+.left-column[
+## Texas Hold'em
+]
+
+.right-column[
+ ![](http://poker247.nu/wp-content/uploads/2014/06/Poker-Texas-Holdem.png)
+ ## Ruby is like Texas Hold'em: Takes five minutes to learn, a lifetime to master
+]
