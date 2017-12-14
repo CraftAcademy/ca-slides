@@ -45,10 +45,14 @@ layout: false
 ]
 .right-column[
 
-_"For me the purpose of life is partly to have joy. Programmers often feel joy when they can concentrate on the creative side of programming, So Ruby is designed to make programmers happy."_ **Yukihiro Matsumoto** - creator of the Ruby programming language
+_"For me the purpose of life is partly to have joy. Programmers often feel joy when they can concentrate on the creative side of programming, So Ruby is designed to make programmers happy."_
 
-_It's just plain impossible to design a perfect language, because there are two ways to look at a language. One way is by looking at what can be done with that language. The other is by looking at how we feel using that language—how we feel while programming.
-I want to emphasize the how part._ more **Yukihiro Matsumoto**
+**Yukihiro Matsumoto** - creator of the Ruby programming language
+
+_It's just plain impossible to design a perfect language, because there are two ways to look at a language. One way is by looking at what can be done with that language. The other is by looking at how we feel using that language — how we feel while programming.
+I want to emphasize the how part._
+
+...more **Yukihiro Matsumoto**
 
 Interesting interview: http://www.artima.com/intv/ruby.html
 
@@ -259,14 +263,17 @@ layout: false
 .right-column[
 ##Classes
 
-Classes are the blueprint from which objects are created. They hold data and have methods that interacts with that data, and are used to instantiate objects..
+Classes are the blueprint from which objects are created.
+They hold data and have methods that interacts with that data, and are used to instantiate objects.
 
-##Objects
+### Objects
 
 An object is an instance of a class.
 ### In plain language:
-A **truck** and a **car** are both objects of the class **Vehicle**. An **apple** and a **pear** are both objects of the class **Fruit**.
+A **truck** and a **car** are both objects of the class **Vehicle**.
+An **apple** and a **banana** are both objects of the class **Fruit**.
 Also, **Enterprise NCC 01** and **Voyager** are **instances** of the class **StarShip**.
+
 ```ruby
 class StarShip
   def initialize(designation)
@@ -288,7 +295,8 @@ layout: false
 In real life, if you as an individual inherit something from someone, it likely means a few things:
 * You are related in some way to whomever you inherit from (in most cases, it is parent to children or grandparent to grandchildren), and
 * You are either getting a bunch of stuff ($$$ or equivalent) or you have gotten some biological attribute (say, a nose shape or hair type, etc).
-**The same goes for inheritance programming.**
+
+#### The same goes for inheritance in programming.
 
 Let's have a look at the `StarShip` example and see if we can build a case for inheritance
 
@@ -374,16 +382,17 @@ Let's see some code:
 ```
 module Designation
   def state_designation
-   "I am a member of the #{self.class}"
+   "I am a member of the #{self.class.name.split(/(?=[A-Z])/).first}"
   end
 end
 
-class Borg
+class BorgCube < StarShip
   include Designation
 end
 
-class Federation
+class FederationStarShip < StarShip
   include Designation
+  #[omitted code for better readability]
 end
 ```
 And this:
@@ -391,7 +400,7 @@ And this:
 ```
 module ExecuteOrders
   def self.go_to_warp(obj)
-    "#{obj.class} ship initiates warp drive..."
+    "#{obj.class} initiates warp drive..."
   end
 end
 ```
@@ -410,8 +419,9 @@ layout: false
 Setter methods allow you to assign value to attributes. Getter methods allow you to read data.
 
 ```
-class Federation
+class FederationStarShip < StarShip
   include Designation
+  #[omitted code for better readability]
 
   def captain=(value)
     @captain = value
@@ -425,10 +435,11 @@ end
 Or you could do this:
 
 ```
-class Federation
+class FederationStarShip < StarShip
   include Designation
-
   attr_accessor :captain
+
+  #[omitted code for better readability]
 end
 ```
 
@@ -482,7 +493,8 @@ And then there is the `eval` way... A dynamic method calling
 eval 'obj.bar'
 ```
 In Ruby you can create methods on the fly, add instance variables, define constants and invoke existing methods dynamically.
-That is pretty awesome (even if you can't see that right now)
+
+That's pretty awesome (even if you can't see that right now)
 
 ]
 
@@ -513,20 +525,30 @@ account = Account.new
 person = Person.new
 account.owner = person
 ```
+]
+---
+layout: false
+.left-column[
+## Safe Navigation Operator (&.)
+<sup><sup>This is an excercise - please complete all steps in IRB and make it work.</sup></sup>
+]
 
+.right-column[
 Let's also say that we want to perform some action but only *if* the account owner name is present (holds a value) and there is a value
 
 ```
 if account && account.owner && account.owner.address
-  # do some stuff
+  #[do some stuff]
   'did it blow up?'
 end
 ```
-This can potentially blow up in our face and raise an exception. This would be better:
+This can potentially blow up in our face and raise an exception.
+
+This would be better:
 
 ```
 if account&.owner&.address
-  # do some stuff
+  #[do some stuff]
   'did it blow up?'
 end
 ```
